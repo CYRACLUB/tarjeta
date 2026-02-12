@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Amy ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff9a9e;
+            --secondary: #fad0c4;
+            --text: #5d4037;
+            --accent: #ff6b6b;
+            --card-bg: rgba(255, 255, 255, 0.92);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent; /* Quita el brillo azul al tocar en Android */
+        }
+
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            font-family: 'Fredoka', sans-serif;
+            height: 100vh; /* Altura de la ventana visible */
+            height: 100dvh; /* Altura dinámica para móviles modernos */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+            position: relative;
+        }
+
+        /* --- Fondo Animado --- */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .plushie {
+            position: absolute;
+            width: 15vw; /* Tamaño relativo al ancho de pantalla */
+            max-width: 90px;
+            min-width: 60px;
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+            will-change: transform; /* Optimización para móviles */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        .p1 { left: 10%; animation-duration: 25s; animation-delay: 0s; }
+        .p2 { left: 30%; animation-duration: 18s; animation-delay: 5s; }
+        .p3 { left: 70%; animation-duration: 22s; animation-delay: 2s; }
+        .p4 { left: 85%; animation-duration: 20s; animation-delay: 8s; }
+        .p5 { left: 50%; animation-duration: 28s; animation-delay: 12s; }
+
+        /* --- Tarjeta Central --- */
+        .card-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Soporte iOS */
+            border-radius: 25px;
+            padding: 30px 20px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(255, 105, 135, 0.25);
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            border: 3px solid #fff;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: height 0.3s ease;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        /* Tipografía fluida para que se vea bien en pantallas chicas y grandes */
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--accent);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            line-height: 1.5;
+            color: #795548;
+            margin: 10px 0;
+        }
+
+        strong {
+            color: var(--accent);
+        }
+
+        /* Botón Responsivo */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+            transition: transform 0.2s, background 0.2s;
+            margin-top: 15px;
+            width: 80%; /* Más fácil de tocar en móvil */
+            max-width: 200px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Imágenes SVG Centrales */
+        .main-icon {
+            width: clamp(100px, 25vw, 140px);
+            height: clamp(100px, 25vw, 140px);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        /* Puntos de progreso */
+        .dots-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ajustes específicos para pantallas muy pequeñas */
+        @media (max-height: 600px) {
+            .card-container { padding: 15px; min-height: 80vh; }
+            .main-icon { width: 80px; height: 80px; }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bg-music" loop>
+    <source src="assets/musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="background-container">
+    <div class="plushie p1"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="35" fill="#D7CCC8"/><circle cx="30" cy="25" r="12" fill="#D7CCC8"/><circle cx="70" cy="25" r="12" fill="#D7CCC8"/><circle cx="30" cy="25" r="6" fill="#FFCDD2"/><circle cx="70" cy="25" r="6" fill="#FFCDD2"/><circle cx="40" cy="50" r="4" fill="#3E2723"/><circle cx="60" cy="50" r="4" fill="#3E2723"/><ellipse cx="50" cy="65" rx="12" ry="10" fill="#EFEBE9"/><circle cx="50" cy="62" r="3" fill="#3E2723"/><circle cx="20" cy="65" r="5" fill="#FFCDD2" opacity="0.6"/><circle cx="80" cy="65" r="5" fill="#FFCDD2" opacity="0.6"/></svg></div>
+    <div class="plushie p2"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="35" ry="30" fill="#FCE4EC"/><ellipse cx="35" cy="20" rx="8" ry="20" fill="#FCE4EC"/><ellipse cx="65" cy="20" rx="8" ry="20" fill="#FCE4EC"/><ellipse cx="35" cy="20" rx="4" ry="12" fill="#F8BBD0"/><ellipse cx="65" cy="20" rx="4" ry="12" fill="#F8BBD0"/><circle cx="40" cy="55" r="3" fill="#880E4F"/><circle cx="60" cy="55" r="3" fill="#880E4F"/><path d="M47 62 Q50 65 53 62" stroke="#880E4F" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="plushie p3"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 30 L30 10 L50 25 L70 10 L80 30" fill="#BBDEFB"/><ellipse cx="50" cy="55" rx="35" ry="30" fill="#BBDEFB"/><circle cx="40" cy="50" r="3" fill="#1A237E"/><circle cx="60" cy="50" r="3" fill="#1A237E"/><path d="M30 60 H10 M30 65 H15 M70 60 H90 M70 65 H85" stroke="#90CAF9" stroke-width="2"/><path d="M48 60 L50 62 L52 60" stroke="#1A237E" stroke-width="2"/></svg></div>
+    <div class="plushie p4" style="filter: hue-rotate(40deg);"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="35" fill="#D7CCC8"/><circle cx="30" cy="25" r="12" fill="#D7CCC8"/><circle cx="70" cy="25" r="12" fill="#D7CCC8"/><circle cx="30" cy="25" r="6" fill="#FFCDD2"/><circle cx="70" cy="25" r="6" fill="#FFCDD2"/><circle cx="40" cy="50" r="4" fill="#3E2723"/><circle cx="60" cy="50" r="4" fill="#3E2723"/><ellipse cx="50" cy="65" rx="12" ry="10" fill="#EFEBE9"/><circle cx="50" cy="62" r="3" fill="#3E2723"/></svg></div>
+    <div class="plushie p5" style="filter: hue-rotate(-20deg);"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="35" ry="30" fill="#FCE4EC"/><ellipse cx="35" cy="20" rx="8" ry="20" fill="#FCE4EC"/><ellipse cx="65" cy="20" rx="8" ry="20" fill="#FCE4EC"/><ellipse cx="35" cy="20" rx="4" ry="12" fill="#F8BBD0"/><ellipse cx="65" cy="20" rx="4" ry="12" fill="#F8BBD0"/><circle cx="40" cy="55" r="3" fill="#880E4F"/><circle cx="60" cy="55" r="3" fill="#880E4F"/><path d="M47 62 Q50 65 53 62" stroke="#880E4F" stroke-width="2" stroke-linecap="round"/></svg></div>
+</div>
+
+<div class="card-container">
+
+    <div class="page active" id="page1">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="15" y="30" width="70" height="50" rx="5" fill="#FFCDD2"/>
+            <path d="M15 30 L50 60 L85 30" fill="#E57373"/>
+            <circle cx="50" cy="55" r="10" fill="#D32F2F"/>
+            <path d="M45 52 L50 58 L55 52" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+        <h1>Hola!</h1>
+        <p>De: Luis Yanes</p>
+        <p>Para: Amy Ramírez</p>
+        <p>Tengo algo pequeñito pero especial que mostrarte...</p>
+        <button class="btn" onclick="nextPage(2)">Abrir ✨</button>
+    </div>
+
+    <div class="page" id="page2">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 70 Q30 85 40 85 H60 Q70 85 70 70 L65 40 H35 Z" fill="#BBDEFB"/>
+            <path d="M35 40 L35 20 H65 L65 40" fill="none" stroke="#BBDEFB" stroke-width="3"/>
+            <circle cx="40" cy="60" r="3" fill="white" opacity="0.6"/>
+            <circle cx="55" cy="75" r="5" fill="white" opacity="0.6"/>
+            <path d="M50 30 Q60 20 70 30 Q80 20 90 30" stroke="#FF4081" stroke-width="3" fill="none"/>
+        </svg>
+        <p>Dicen que las mejores cosas no se planean...</p>
+        <p>Desde que te conocí, <b>solo con pensarte sonrío.</b>.</p>
+        <button class="btn" onclick="nextPage(3)">Siguiente</button>
+    </div>
+
+    <div class="page" id="page3">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="35" fill="#FFF176"/> <circle cx="35" cy="45" r="4" fill="#3E2723"/>
+            <circle cx="65" cy="45" r="4" fill="#3E2723"/>
+            <path d="M35 60 Q50 75 65 60" stroke="#3E2723" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M50 10 V5 M50 95 V90 M10 50 H5 M95 50 H90 M22 22 L18 18 M78 78 L82 82 M22 78 L18 82 M78 22 L82 18" stroke="#FDD835" stroke-width="3"/>
+        </svg>
+        <p>Te cuento un secreto...</p>
+        <p>Me encanta lo auténtica que eres. <b>Tienes una vibra que alegra todo</b>.</p>
+        <button class="btn" onclick="nextPage(4)">Siguiente</button>
+    </div>
+
+    <div class="page" id="page4">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 30 H60 V60 H30 L20 70 V30 Z" fill="#B2DFDB"/>
+            <path d="M80 40 H40 V70 H70 L80 80 V40 Z" fill="#80CBC4"/>
+            <circle cx="40" cy="45" r="2" fill="white"/>
+            <circle cx="50" cy="45" r="2" fill="white"/>
+        </svg>
+        <p>A veces el tiempo vuela cuando hablamos.</p>
+        <p>Gracias por dejarme ser parte de tus días, aunque sea un poquito.</p>
+        <button class="btn" onclick="nextPage(5)">Siguiente</button>
+    </div>
+
+    <div class="page" id="page5">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" fill="#E1BEE7"/>
+            <path d="M20 50 Q50 80 80 50" fill="none" stroke="#8E24AA" stroke-width="2" stroke-dasharray="5,5"/>
+            <text x="50" y="55" font-size="30" text-anchor="middle">🌎</text>
+        </svg>
+        <p>Quería que supieras esto:</p>
+        <p>Eres, sin duda, <b>la casualidad más bonita</b> que ha llegado a mi vida.</p>
+        <button class="btn" onclick="nextPage(6)">Y por último...</button>
+    </div>
+
+    <div class="page" id="page6">
+        <svg class="main-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 85 C50 85 90 60 90 35 C90 15 70 5 50 25 C30 5 10 15 10 35 C10 60 50 85 50 85 Z" fill="#F44336"/>
+            <circle cx="30" cy="30" r="5" fill="white" opacity="0.5"/>
+        </svg>
+        <h1>¡Feliz San Valentín!</h1>
+        <p>Agradezco a Dios por poner en mi camino a las personas que me permitieron conocerte.</p>
+        <p>Eres muy especial para mí, Amy.</p>
+    </div>
+
+    <div class="dots-container">
+        <div class="dot active" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
+        <div class="dot" id="dot5"></div>
+        <div class="dot" id="dot6"></div>
+    </div>
+
+</div>
+
+<script>
+    function nextPage(pageNumber) {
+        // Manejo de Audio
+        if (pageNumber === 2) {
+            var audio = document.getElementById("bg-music");
+            if(audio) {
+                audio.volume = 0.5;
+                audio.play().catch(e => console.log("Audio requiere interacción"));
+            }
+        }
+
+        // Cambiar Página
+        var pages = document.querySelectorAll('.page');
+        var dots = document.querySelectorAll('.dot');
+
+        // Ocultar todas
+        pages.forEach(p => p.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        // Mostrar la nueva
+        var nextPage = document.getElementById('page' + pageNumber);
+        var nextDot = document.getElementById('dot' + pageNumber);
+
+        if (nextPage) {
+            nextPage.classList.add('active');
+            if(nextDot) nextDot.classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>
